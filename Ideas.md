@@ -4,8 +4,8 @@ Remaining mechanics to be done/finished: <br>
 
 - [ ] class mechanic:
 eletctric engine inventory item with charge. restores 0.5 stamina per second
-made from the light boxes from golems, abilities may increase drain of energy from this item
-drains passively during combat, recharges passively out of combat each second, has around 200 charge
+made from the light boxes from golems, abilities may increase drain of energy from this item 
+drains passively during combat, recharges passively out of combat each second, has around 200 charge 
 
 - [ ] UI for the engine charge
 - [ ] if the engine is at 70% charge or higher gain Energized buff untill it drops under 70%
@@ -22,7 +22,7 @@ pre breakthrough-
 
 - [ ] jump-over: use your target as a ramp to leap over them, build up confusion/doomed
 
-- [ ] Sword column- dodge roll now builds up blessed(purifier) or on player, costs 5 more stamina, if user already has blessed, recharges Engine by 8 with every dodge
+- [ ] Sword column- dodge roll now builds up blessed on player, costs 5 more stamina, if user already has blessed, recharges Engine by 8 with every dodge
 
 Breakthrough passive-
 - [ ] 1) engine now gives 5 max health and stamina, uses mana to restore 2 burnt stamina and 1 burnt health per second, gives 0.75 more stamina per second
