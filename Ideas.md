@@ -12,7 +12,7 @@ drains passively during combat, recharges passively out of combat each second, h
 once it falls below 30% gain drawback until it goes back
 
 pre breakthrough-
-- [x] choise between passive: more physical/more electric focus, schyter/ purifier, choise affects abilities<br>
+- [ ] choise between passive: more physical/more electric focus, schyter/ purifier, choise affects abilities<br>
 	Scyther- increases physical damage, decreases physical resistance<br>
 	Purifier- increases lightning damage, decreases decay resistance<br>
 	works only when engine is active
