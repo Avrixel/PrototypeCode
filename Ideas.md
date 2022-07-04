@@ -22,7 +22,7 @@ pre breakthrough-
 Breakthrough passive-
 - [ ] 1) engine now gives 5 max health and stamina, uses mana to restore 2 burnt stamina and 1 burnt health per second, gives 0.75 more stamina per second
 or
-- [ ] 2) engine now gives 15 max stamina and every time skill cooldown is reset (through prime or break buff) skills cost is also refunded, restores 0.25 per second
+- [ ] 2) engine now gives 15 max stamina and every time skill cooldown is reset (through prime or break buff) skills cost is also refunded, restores 0.25 more stamina per second
 
 - [ ] both breakthroughs cause Charged buff to build up on the player in combat, some skills spend it to have additional effects
 	add build up of Charged on engine UI
