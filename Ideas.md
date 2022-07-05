@@ -29,7 +29,6 @@ or
 
 post breakthrough-<br>
 
-- [ ] Lightning dash- dash through the target and deal damage if has a Charged status effect refresh cooldown, if prime was active will not use up Charged buff
 
 - [ ] a way for Lightning dash, quickdraw and Jump-over to trigger on dodge effects (build up bless/charge engine, decrease Permafrost stacks if Vanguard is installed etc.)
 
