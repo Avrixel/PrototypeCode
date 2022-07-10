@@ -32,7 +32,7 @@ post breakthrough-<br>
 
 - [ ] a way for Lightning dash, quickdraw and Jump-over to trigger on dodge effects (build up bless/charge engine, decrease Permafrost stacks if Vanguard is installed etc.)
 
-- [ ] Overclock doubles the energy consumtion, would be active until  the fight ends or you run out of energy and would restore 20 energy for each death around player
+- [ ] Overclock doubles the energy consumtion, would be active until  the fight ends or you run out of energy and would restore 20 energy for each death around player,
 right now it has fixed duration
 - [ ] Bladestorm would eat 50 energy, but would refund 12 for each kill
 - [ ] Make lightning dash use Charged buff to reset cooldownand not use it if Prime was active (I can reset cooldown in XML but Prime gets removed with activation, so theres no way for me to check for it using SL)
