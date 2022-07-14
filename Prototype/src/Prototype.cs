@@ -25,7 +25,7 @@ namespace AvrixelPrototype
         // For accessing your BepInEx Logger from outside of this class (MyMod.Log)
         internal static ManualLogSource Log;
 
-        public static int DefaultEngine = -19030;
+        public static int DefaultEngine = -9000;
 
 
 
@@ -43,7 +43,12 @@ namespace AvrixelPrototype
         private void SL_OnPacksLoaded()
         {
             Item Engine = ResourcesPrefabManager.Instance.GetItemPrefab(DefaultEngine);
-            Engine.gameObject.AddComponent<ItemEngine>();
+            Engine.gameObject.AddComponent<ItemEngine_Charge>();
+        }
+
+        public enum PrototypeItemEngineIDS
+        {
+            BaseEngine = -9000
         }
     }
 }
