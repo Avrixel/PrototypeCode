@@ -30,7 +30,7 @@ or
 post breakthrough-<br>
 
 
-- [ ] a way for Lightning dash, quickdraw and Jump-over to trigger on dodge effects (build up bless/charge engine, decrease Permafrost stacks if Vanguard is installed etc.)
+- [X] a way for Lightning dash, quickdraw and Jump-over to trigger on dodge effects (build up bless/charge engine, decrease Permafrost stacks if Vanguard is installed etc.)
 
 - [ ] Overclock doubles the energy consumtion, would be active until  the fight ends or you run out of energy and would restore 20 energy for each death around player,
 right now it has fixed duration
