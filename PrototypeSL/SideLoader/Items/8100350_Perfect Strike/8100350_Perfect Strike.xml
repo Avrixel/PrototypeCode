@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<SL_MeleeSkill xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Target_ItemID>8100350</Target_ItemID>
+  <New_ItemID>8100350</New_ItemID>
+  <Name>Perfect Strike</Name>
+  <Description>Required: Any Melee Weapon, Discipline Boon
+
+Lunging attack that ignores all defenses and inflicts Pain.</Description>
+  <LegacyItemID>-1</LegacyItemID>
+  <IsPickable>false</IsPickable>
+  <IsUsable>false</IsUsable>
+  <QtyRemovedOnUse>1</QtyRemovedOnUse>
+  <GroupItemInDisplay>false</GroupItemInDisplay>
+  <HasPhysicsWhenWorld>false</HasPhysicsWhenWorld>
+  <RepairedInRest>true</RepairedInRest>
+  <BehaviorOnNoDurability>NotSet</BehaviorOnNoDurability>
+  <CastType>PreciseStrike</CastType>
+  <CastModifier>Attack</CastModifier>
+  <CastLocomotionEnabled>false</CastLocomotionEnabled>
+  <MobileCastMovementMult>-1</MobileCastMovementMult>
+  <CastSheatheRequired>2</CastSheatheRequired>
+  <OverrideSellModifier>-1</OverrideSellModifier>
+  <Tags />
+  <ExtensionsEditBehaviour>NONE</ExtensionsEditBehaviour>
+  <ItemExtensions />
+  <EffectBehaviour>NONE</EffectBehaviour>
+  <EffectTransforms>
+    <SL_EffectTransform>
+      <TransformName>AdditionalActivationConditions</TransformName>
+      <Position xsi:nil="true" />
+      <Rotation xsi:nil="true" />
+      <Scale xsi:nil="true" />
+      <Effects />
+      <EffectConditions />
+      <ChildEffects>
+        <SL_EffectTransform>
+          <TransformName>Discipline</TransformName>
+          <Position xsi:nil="true" />
+          <Rotation xsi:nil="true" />
+          <Scale xsi:nil="true" />
+          <Effects />
+          <EffectConditions>
+            <SL_EffectCondition xsi:type="SL_HasStatusEffectEffectCondition">
+              <Invert>false</Invert>
+              <DiseaseAge>0</DiseaseAge>
+              <CheckOwner>false</CheckOwner>
+              <StatusSelectorType>StatusType</StatusSelectorType>
+              <SelectorValue>Discipline</SelectorValue>
+            </SL_EffectCondition>
+          </EffectConditions>
+          <ChildEffects />
+        </SL_EffectTransform>
+      </ChildEffects>
+    </SL_EffectTransform>
+    <SL_EffectTransform>
+      <TransformName>HitEffects</TransformName>
+      <Position xsi:nil="true" />
+      <Rotation xsi:nil="true" />
+      <Scale xsi:nil="true" />
+      <Effects>
+        <SL_Effect xsi:type="SL_WeaponDamage">
+          <Delay>0</Delay>
+          <SyncType>Everyone</SyncType>
+          <OverrideCategory>None</OverrideCategory>
+          <Damage>
+            <SL_Damage>
+              <Damage>25</Damage>
+              <Type>Raw</Type>
+            </SL_Damage>
+          </Damage>
+          <Damages_AI />
+          <Knockback>0</Knockback>
+          <HitInventory>true</HitInventory>
+          <IgnoreHalfResistances>false</IgnoreHalfResistances>
+          <OverrideType>Raw</OverrideType>
+          <ForceOnlyLeftHand>false</ForceOnlyLeftHand>
+          <Damage_Multiplier>2</Damage_Multiplier>
+          <Damage_Multiplier_Kback>-1</Damage_Multiplier_Kback>
+          <Damage_Multiplier_Kdown>-1</Damage_Multiplier_Kdown>
+          <Impact_Multiplier>1</Impact_Multiplier>
+          <Impact_Multiplier_Kback>-1</Impact_Multiplier_Kback>
+          <Impact_Multiplier_Kdown>-1</Impact_Multiplier_Kdown>
+        </SL_Effect>
+        <SL_Effect xsi:type="SL_AddStatusEffect">
+          <Delay>0</Delay>
+          <SyncType>OwnerSync</SyncType>
+          <OverrideCategory>None</OverrideCategory>
+          <StatusEffect>Pain</StatusEffect>
+          <ChanceToContract>100</ChanceToContract>
+          <AffectController>false</AffectController>
+          <AdditionalLevel>0</AdditionalLevel>
+          <NoDealer>false</NoDealer>
+        </SL_Effect>
+      </Effects>
+      <EffectConditions />
+      <ChildEffects />
+    </SL_EffectTransform>
+    <SL_EffectTransform>
+      <TransformName>ActivationEffects</TransformName>
+      <Position xsi:nil="true" />
+      <Rotation xsi:nil="true" />
+      <Scale xsi:nil="true" />
+      <Effects>
+        <SL_Effect xsi:type="SL_PlaySoundEffect">
+          <Delay>0</Delay>
+          <SyncType>OwnerSync</SyncType>
+          <OverrideCategory>None</OverrideCategory>
+          <Sounds>
+            <Sounds>SFX_SKILL_PreciseStrike_PhysicalCharge</Sounds>
+          </Sounds>
+          <Follow>false</Follow>
+          <MinPitch>1</MinPitch>
+          <MaxPitch>1</MaxPitch>
+        </SL_Effect>
+        <SL_Effect xsi:type="SL_PlaySoundEffect">
+          <Delay>0.4</Delay>
+          <SyncType>OwnerSync</SyncType>
+          <OverrideCategory>None</OverrideCategory>
+          <Sounds>
+            <Sounds>SFX_SKILL_PreciseStrike_WhooshImpact</Sounds>
+          </Sounds>
+          <Follow>false</Follow>
+          <MinPitch>1</MinPitch>
+          <MaxPitch>1</MaxPitch>
+        </SL_Effect>
+        <SL_Effect xsi:type="SL_PlaySoundEffect">
+          <Delay>0</Delay>
+          <SyncType>OwnerSync</SyncType>
+          <OverrideCategory>None</OverrideCategory>
+          <Sounds>
+            <Sounds>CS_Golem_HeavyAttackFence_Whoosh1</Sounds>
+          </Sounds>
+          <Follow>false</Follow>
+          <MinPitch>1</MinPitch>
+          <MaxPitch>1</MaxPitch>
+        </SL_Effect>
+      </Effects>
+      <EffectConditions />
+      <ChildEffects />
+    </SL_EffectTransform>
+    <SL_EffectTransform>
+      <TransformName>ActivationEffects Prototype</TransformName>
+      <Position xsi:nil="true" />
+      <Rotation xsi:nil="true" />
+      <Scale xsi:nil="true" />
+	  <Effects>
+	  <SL_Effect xsi:type="SL_EffectLifecycleEffect">
+          <Delay>0</Delay>
+          <SyncType>OwnerSync</SyncType>
+          <OverrideCategory>None</OverrideCategory>
+          <EffectBehavior>Destroy</EffectBehavior>
+          <ChildEffects>
+            <SL_EffectTransform>
+              <TransformName>Normal</TransformName>
+              <Position xsi:nil="true" />
+              <Rotation xsi:nil="true" />
+              <Scale xsi:nil="true" />
+              <Effects>
+                <SL_Effect xsi:type="SL_AddStatusEffect">
+                  <Delay>0.1</Delay>
+                  <SyncType>OwnerSync</SyncType>
+                  <OverrideCategory>None</OverrideCategory>
+                  <StatusEffect>Unerring Read</StatusEffect>
+                  <ChanceToContract>100</ChanceToContract>
+                  <AffectController>true</AffectController>
+                  <AdditionalLevel>0</AdditionalLevel>
+                  <NoDealer>false</NoDealer>
+                </SL_Effect>
+                <SL_Effect xsi:type="SL_RemoveStatusEffect">
+                  <Delay>5.2</Delay>
+                  <SyncType>OwnerSync</SyncType>
+                  <OverrideCategory>None</OverrideCategory>
+                  <CleanseType>StatusSpecific</CleanseType>
+                  <SelectorValue>Unerring Read</SelectorValue>
+                </SL_Effect>
+                <SL_Effect xsi:type="SL_EffectLifecycleEffect">
+                  <Delay>0</Delay>
+                  <SyncType>OwnerSync</SyncType>
+                  <OverrideCategory>None</OverrideCategory>
+                  <EffectBehavior>Destroy</EffectBehavior>
+                  <ChildEffects>
+                    <SL_EffectTransform>
+                      <TransformName>Normal</TransformName>
+                      <Position xsi:nil="true" />
+                      <Rotation xsi:nil="true" />
+                      <Scale xsi:nil="true" />
+                      <Effects>
+                        <SL_Effect xsi:type="SL_AddStatusEffect">
+                          <Delay>5.4</Delay>
+                          <SyncType>OwnerSync</SyncType>
+                          <OverrideCategory>None</OverrideCategory>
+                          <StatusEffect>Unerring Read</StatusEffect>
+                          <ChanceToContract>100</ChanceToContract>
+                          <AffectController>true</AffectController>
+                          <AdditionalLevel>0</AdditionalLevel>
+                          <NoDealer>false</NoDealer>
+                        </SL_Effect>
+                      </Effects>
+                      <EffectConditions>
+                        <SL_EffectCondition xsi:type="SL_HasStatusEffectEffectCondition">
+                          <Invert>false</Invert>
+                          <DiseaseAge>0</DiseaseAge>
+                          <CheckOwner>true</CheckOwner>
+                          <StatusSelectorType>StatusSpecific</StatusSelectorType>
+                          <SelectorValue>Unerring Read</SelectorValue>
+                        </SL_EffectCondition>
+                      </EffectConditions>
+                    </SL_EffectTransform>
+                  </ChildEffects>
+                  <ActivationLimit>2</ActivationLimit>
+                </SL_Effect>
+              </Effects>
+              <EffectConditions>
+                <SL_EffectCondition xsi:type="SL_HasPassiveSkillConditionCaster">
+                  <Invert>false</Invert>
+                  <PassiveID>-19034</PassiveID>
+                </SL_EffectCondition>
+              </EffectConditions>
+            </SL_EffectTransform>
+          </ChildEffects>
+          <ActivationLimit>2</ActivationLimit>
+        </SL_Effect>
+		</Effects>
+    </SL_EffectTransform>
+  </EffectTransforms>
+  <Cooldown>30</Cooldown>
+  <StaminaCost>10</StaminaCost>
+  <ManaCost>0</ManaCost>
+  <DurabilityCost>0</DurabilityCost>
+  <DurabilityCostPercent>0</DurabilityCostPercent>
+  <VFXOnStart>true</VFXOnStart>
+  <StopStartVFXOnEnd>false</StopStartVFXOnEnd>
+  <StartVFX>VFXPreciseStrike</StartVFX>
+  <RequiredItems />
+  <HealthCost>0</HealthCost>
+  <RequiredPlayerType>Normal</RequiredPlayerType>
+  <AmmunitionTypes />
+  <RequiredOffHandTypes />
+  <RequiredWeaponTypes>
+    <WeaponType>Sword_1H</WeaponType>
+    <WeaponType>Axe_1H</WeaponType>
+    <WeaponType>Mace_1H</WeaponType>
+    <WeaponType>Halberd_2H</WeaponType>
+    <WeaponType>Sword_2H</WeaponType>
+    <WeaponType>Axe_2H</WeaponType>
+    <WeaponType>Mace_2H</WeaponType>
+    <WeaponType>Spear_2H</WeaponType>
+    <WeaponType>FistW_2H</WeaponType>
+  </RequiredWeaponTypes>
+  <RequiredWeaponTags />
+  <RequireImbue>false</RequireImbue>
+  <AmmunitionAmount xsi:nil="true" />
+  <Blockable>false</Blockable>
+  <Damage xsi:nil="true" />
+  <Impact xsi:nil="true" />
+  <LinecastCount xsi:nil="true" />
+  <Radius xsi:nil="true" />
+  <Unblockable xsi:nil="true" />
+  <NoWeaponAtkTag>false</NoWeaponAtkTag>
+</SL_MeleeSkill>

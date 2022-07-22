@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<SL_StatusEffect xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TargetStatusIdentifier>Burning</TargetStatusIdentifier>
+  <NewStatusID>0</NewStatusID>
+  <StatusIdentifier>StaticEl</StatusIdentifier>
+  <Name>Static Electricity</Name>
+  <Description>Take Electric Damage per second, spreads to alies</Description>
+  <Lifespan>10</Lifespan>
+  <RefreshRate>2</RefreshRate>
+  <Purgeable>true</Purgeable>
+  <Priority>1</Priority>
+  <IgnoreBarrier>true</IgnoreBarrier>
+  <BuildupRecoverySpeed>0</BuildupRecoverySpeed>
+  <IgnoreBuildupIfApplied>false</IgnoreBuildupIfApplied>
+  <AmplifiedStatusIdentifier />
+  <RemoveRequiredStatus>false</RemoveRequiredStatus>
+  <NormalizeDamageDisplay>false</NormalizeDamageDisplay>
+  <DisplayedInHUD>true</DisplayedInHUD>
+  <IsHidden>false</IsHidden>
+  <IsMalusEffect>true</IsMalusEffect>
+  <DelayedDestroyTime>0</DelayedDestroyTime>
+  <ActionOnHit>None</ActionOnHit>
+  <FamilyMode>Bind</FamilyMode>
+  <BindFamily>
+    <UID>SpreadingElectricDoT</UID>
+    <Name>Electric</Name>
+    <StackBehaviour>Override</StackBehaviour>
+    <MaxStackCount>-1</MaxStackCount>
+    <LengthType>Short</LengthType>
+  </BindFamily>
+  <PlayFXOnActivation>true</PlayFXOnActivation>
+  <FXOffset>
+    <x>0</x>
+    <y>0</y>
+    <z>0</z>
+  </FXOffset>
+  <VFXInstantiationType>VFX</VFXInstantiationType>
+  <VFXPrefab>HolyBlazeVFX</VFXPrefab>
+  <SpecialSFX>NONE</SpecialSFX>
+  <PlaySpecialFXOnStop>false</PlaySpecialFXOnStop>
+  <EffectBehaviour>Destroy</EffectBehaviour>
+  <Effects>
+    <SL_EffectTransform>
+      <TransformName>Effects</TransformName>
+      <Position xsi:nil="true" />
+      <Rotation xsi:nil="true" />
+      <Scale xsi:nil="true" />
+      <Effects>
+        <SL_Effect xsi:type="SL_PunctualDamage">
+          <Delay>0</Delay>
+          <SyncType>Everyone</SyncType>
+          <OverrideCategory>None</OverrideCategory>
+          <Damage>
+            <SL_Damage>
+              <Damage>10</Damage>
+              <Type>Electric</Type>
+            </SL_Damage>
+          </Damage>
+          <Damages_AI />
+          <Knockback>0</Knockback>
+          <HitInventory>false</HitInventory>
+          <IgnoreHalfResistances>false</IgnoreHalfResistances>
+        </SL_Effect>
+        <SL_Effect xsi:type="SL_ShootBlast">
+          <Delay>0</Delay>
+          <SyncType>OwnerSync</SyncType>
+          <OverrideCategory>None</OverrideCategory>
+          <CastPosition>Local</CastPosition>
+          <LocalPositionAdd>
+            <x>0</x>
+            <y>0.5</y>
+            <z>0</z>
+          </LocalPositionAdd>
+          <NoAim>false</NoAim>
+          <TargetType>Allies</TargetType>
+          <TransformName>ShooterTransform</TransformName>
+          <BaseBlast>BoltElectricBlast</BaseBlast>
+          <Radius>6</Radius>
+          <RefreshTime>0.1</RefreshTime>
+          <BlastLifespan>0</BlastLifespan>
+          <InstantiatedAmount>1</InstantiatedAmount>
+          <Interruptible>false</Interruptible>
+          <MaxHitTargetCount>-1</MaxHitTargetCount>
+          <AffectHitTargetCenter>false</AffectHitTargetCenter>
+          <HitOnShoot>true</HitOnShoot>
+          <IgnoreShooter>true</IgnoreShooter>
+          <IgnoreStop>false</IgnoreStop>
+          <NoTargetForwardMultiplier>5</NoTargetForwardMultiplier>
+          <ParentToShootTransform>false</ParentToShootTransform>
+          <UseTargetCharacterPositionType>false</UseTargetCharacterPositionType>
+          <ImpactSoundMaterial>NONE</ImpactSoundMaterial>
+          <DontPlayHitSound>true</DontPlayHitSound>
+          <FXIsWorld>false</FXIsWorld>
+          <PlaySounOnRefresh>false</PlaySounOnRefresh>
+          <DelayFirstShoot>-1</DelayFirstShoot>
+          <PlayFXOnRefresh>false</PlayFXOnRefresh>
+          <EffectBehaviour>Destroy</EffectBehaviour>
+          <BlastEffects>
+            <SL_EffectTransform>
+              <TransformName>Effects</TransformName>
+              <Position xsi:nil="true" />
+              <Rotation xsi:nil="true" />
+              <Scale xsi:nil="true" />
+              <Effects>
+                <SL_Effect xsi:type="SL_AddStatusEffectBuildUp">
+                  <Delay>0</Delay>
+                  <SyncType>OwnerSync</SyncType>
+                  <OverrideCategory>None</OverrideCategory>
+                  <StatusEffect>StaticEl</StatusEffect>
+                  <Buildup>50</Buildup>
+                  <BuildUpMultiplier>1</BuildUpMultiplier>
+                  <BypassCounter>false</BypassCounter>
+                  <AffectController>false</AffectController>
+                </SL_Effect>
+              </Effects>
+            </SL_EffectTransform>
+          </BlastEffects>
+        </SL_Effect>
+      </Effects>
+      <EffectConditions />
+      <ChildEffects />
+    </SL_EffectTransform>
+  </Effects>
+</SL_StatusEffect>

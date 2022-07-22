@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<SL_ImbueEffect xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TargetStatusID>207</TargetStatusID>
+  <NewStatusID>-19026</NewStatusID>
+  <Name>Chain lightning imbue</Name>
+  <Description>Weapon deals some Lightning Damage and builds up Static Electricity on enemies</Description>
+  <EffectBehaviour>Destroy</EffectBehaviour>
+  <Effects>
+    <SL_EffectTransform>
+      <TransformName>Effects</TransformName>
+      <Position xsi:nil="true" />
+      <Rotation xsi:nil="true" />
+      <Scale xsi:nil="true" />
+      <Effects>
+        <SL_Effect xsi:type="SL_WeaponDamage">
+          <Delay>0</Delay>
+          <SyncType>Everyone</SyncType>
+          <OverrideCategory>Hit</OverrideCategory>
+          <Damage>
+            <SL_Damage>
+              <Damage>7</Damage>
+              <Type>Electric</Type>
+            </SL_Damage>
+          </Damage>
+          <Damages_AI />
+          <Knockback>0</Knockback>
+          <HitInventory>true</HitInventory>
+          <IgnoreHalfResistances>false</IgnoreHalfResistances>
+          <OverrideType>Electric</OverrideType>
+          <ForceOnlyLeftHand>false</ForceOnlyLeftHand>
+          <Damage_Multiplier>1.2</Damage_Multiplier>
+          <Damage_Multiplier_Kback>-1</Damage_Multiplier_Kback>
+          <Damage_Multiplier_Kdown>-1</Damage_Multiplier_Kdown>
+          <Impact_Multiplier>1</Impact_Multiplier>
+          <Impact_Multiplier_Kback>-1</Impact_Multiplier_Kback>
+          <Impact_Multiplier_Kdown>-1</Impact_Multiplier_Kdown>
+        </SL_Effect>
+        <SL_Effect xsi:type="SL_AddStatusEffectBuildUp">
+          <Delay>0</Delay>
+          <SyncType>Everyone</SyncType>
+          <OverrideCategory>Hit</OverrideCategory>
+          <StatusEffect>StaticEl</StatusEffect>
+          <Buildup>25</Buildup>
+          <BuildUpMultiplier>1</BuildUpMultiplier>
+          <BypassCounter>false</BypassCounter>
+          <AffectController>false</AffectController>
+        </SL_Effect>
+      </Effects>
+      <EffectConditions />
+      <ChildEffects />
+    </SL_EffectTransform>
+  </Effects>
+</SL_ImbueEffect>

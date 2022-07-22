@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<SL_StatusEffect xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TargetStatusIdentifier>StaticEl</TargetStatusIdentifier>
+  <NewStatusID>0</NewStatusID>
+  <StatusIdentifier>AfterIm</StatusIdentifier>
+  <Name>AfterImage Target</Name>
+  <Description>recieve second strike after the first hit</Description>
+  <Lifespan>1</Lifespan>
+  <RefreshRate>1</RefreshRate>
+  <Purgeable>true</Purgeable>
+  <Priority>1</Priority>
+  <IgnoreBarrier>true</IgnoreBarrier>
+  <BuildupRecoverySpeed>0</BuildupRecoverySpeed>
+  <IgnoreBuildupIfApplied>false</IgnoreBuildupIfApplied>
+  <AmplifiedStatusIdentifier />
+  <RemoveRequiredStatus>false</RemoveRequiredStatus>
+  <NormalizeDamageDisplay>false</NormalizeDamageDisplay>
+  <DisplayedInHUD>true</DisplayedInHUD>
+  <IsHidden>false</IsHidden>
+  <IsMalusEffect>true</IsMalusEffect>
+  <DelayedDestroyTime>0</DelayedDestroyTime>
+  <ActionOnHit>None</ActionOnHit>
+  <FamilyMode>Bind</FamilyMode>
+  <BindFamily>
+    <UID>MultipleWeaponHits</UID>
+    <Name>PhysicalHit</Name>
+    <StackBehaviour>Override</StackBehaviour>
+    <MaxStackCount>-1</MaxStackCount>
+    <LengthType>Short</LengthType>
+  </BindFamily>
+  <PlayFXOnActivation>true</PlayFXOnActivation>
+  <FXOffset>
+    <x>0</x>
+    <y>0</y>
+    <z>0</z>
+  </FXOffset>
+  <VFXInstantiationType>VFX</VFXInstantiationType>
+  <VFXPrefab>HexPainVFX</VFXPrefab>
+  <SpecialSFX>NONE</SpecialSFX>
+  <PlaySpecialFXOnStop>false</PlaySpecialFXOnStop>
+  <EffectBehaviour>Destroy</EffectBehaviour>
+  <Effects>
+    <SL_EffectTransform>
+      <TransformName>Effects</TransformName>
+      <Position xsi:nil="true" />
+      <Rotation xsi:nil="true" />
+      <Scale xsi:nil="true" />
+      <Effects>
+        <SL_Effect xsi:type="SL_PunctualDamage">
+          <Delay>0</Delay>
+          <SyncType>OwnerSync</SyncType>
+          <OverrideCategory>None</OverrideCategory>
+          <Damage>
+            <SL_Damage>
+              <Damage>10</Damage>
+              <Type>Physical</Type>
+            </SL_Damage>
+          </Damage>
+          <Damages_AI />
+          <Knockback>0</Knockback>
+          <HitInventory>false</HitInventory>
+          <IgnoreHalfResistances>false</IgnoreHalfResistances>
+        </SL_Effect>
+      </Effects>
+      <EffectConditions />
+      <ChildEffects />
+    </SL_EffectTransform>
+  </Effects>
+</SL_StatusEffect>

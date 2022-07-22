@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<SL_StatusEffect xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TargetStatusIdentifier>Bless</TargetStatusIdentifier>
+  <NewStatusID>0</NewStatusID>
+  <StatusIdentifier>Charged</StatusIdentifier>
+  <Name>Charged</Name>
+  <Description>Allows aditional effects on certain abilities to trigger</Description>
+  <Lifespan>240</Lifespan>
+  <RefreshRate>0.1</RefreshRate>
+  <Purgeable>true</Purgeable>
+  <Priority>1</Priority>
+  <IgnoreBarrier>false</IgnoreBarrier>
+  <BuildupRecoverySpeed>0</BuildupRecoverySpeed>
+  <IgnoreBuildupIfApplied>false</IgnoreBuildupIfApplied>
+  <RemoveRequiredStatus>false</RemoveRequiredStatus>
+  <NormalizeDamageDisplay>false</NormalizeDamageDisplay>
+  <DisplayedInHUD>true</DisplayedInHUD>
+  <IsHidden>false</IsHidden>
+  <IsMalusEffect>false</IsMalusEffect>
+  <DelayedDestroyTime>0</DelayedDestroyTime>
+  <ActionOnHit>None</ActionOnHit>
+  <FamilyMode>Bind</FamilyMode>
+  <BindFamily>
+    <UID>PlayerChargingBuff</UID>
+    <Name>LightCharge</Name>
+    <StackBehaviour>IndependantUnique</StackBehaviour>
+    <MaxStackCount>-1</MaxStackCount>
+    <LengthType>Short</LengthType>
+  </BindFamily>
+  <PlayFXOnActivation>true</PlayFXOnActivation>
+  <FXOffset>
+    <x>0</x>
+    <y>0</y>
+    <z>0</z>
+  </FXOffset>
+  <VFXInstantiationType>Normal</VFXInstantiationType>
+  <VFXPrefab xsi:nil="true" />
+  <SpecialSFX>NONE</SpecialSFX>
+  <PlaySpecialFXOnStop>false</PlaySpecialFXOnStop>
+  <EffectBehaviour>Destroy</EffectBehaviour>
+  <Effects>
+    <SL_EffectTransform>
+      <TransformName>ActivationEffects</TransformName>
+      <Position xsi:nil="true" />
+      <Rotation xsi:nil="true" />
+      <Scale xsi:nil="true" />
+      <Effects />
+      <EffectConditions />
+      <ChildEffects />
+    </SL_EffectTransform>
+  </Effects>
+</SL_StatusEffect>
