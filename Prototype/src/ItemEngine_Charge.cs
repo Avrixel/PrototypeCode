@@ -24,24 +24,35 @@ namespace AvrixelPrototype
 
         //to check if the engine is empty
         public bool IsEmpty;
-        //bool for the breakthrough passives
-        public bool StaminaEngine= false;
-        public bool ManaEngine= false;
+        //enum for the breakthrough passives
+        public enum BreakthroughBonus
+        {
+            NONE,
+            STAMINA,
+            MANA
+        }
+        public BreakthroughBonus Breakthrough = ItemEngine_Charge.BreakthroughBonus.NONE;
 
+        //check for breakthrough on equip and add 5 maxStamina for mana engine and 15 maxStamina for stamina engine
+        public BreakthroughBonus GetBreakThroughMode(Character Character)
+        {
+            if (Character.Inventory.SkillKnowledge.IsItemLearned(-19024))
+            {
+                return BreakthroughBonus.MANA;
+            }
+            else if (Character.Inventory.SkillKnowledge.IsItemLearned(-19024))
+            {
+                return BreakthroughBonus.STAMINA;
+            }
+
+            return BreakthroughBonus.NONE;
+        }
 
         public override void OnEquip(Character CharacterToEquip)
         {
             base.OnEquip(CharacterToEquip);
 
-            //check for breakthrough on equip and add 5 maxStamina for mana engine and 15 maxStamina for stamina engine
-          /*  if (Character.Inventory.SkillKnowledge.IsItemLearned(-19024))
-            {
-                ManaEngine = true;
-            }
-            if (Character.Inventory.SkillKnowledge.IsItemLearned(-19025))
-            {
-                StaminaEngine = true;
-            }*/
+            
 
         }
 
@@ -62,28 +73,49 @@ namespace AvrixelPrototype
 
             //add stamina if the engine is active and in combat
             //and remove energy
-            if (IsEmpty=false && EquippedCharacter && EquippedCharacter.InCombat)
+            if (!IsEmpty && EquippedCharacter && EquippedCharacter.InCombat)
             {
                 EquippedCharacter.Stats.AffectStamina(StaminaGain);
                 RemoveEnergy(EnergyTakenPerTick);
-                //remove 0.5 mana to remove 0.5 burnt health and stamina
-                if (ManaEngine)
+
+
+                BreakthroughBonus mode = GetBreakThroughMode(EquippedCharacter);
+
+                switch (mode)
                 {
-                    //EquippedCharacter.Stats.UseMana(StaminaGain);
-                    EquippedCharacter.Stats.RestoreBurntHealth(BurntResourceRestore);
-                    EquippedCharacter.Stats.RestoreBurntStamina(BurntResourceRestore);
-                }
-                if (StaminaEngine)
-                {
-                    EquippedCharacter.Stats.AffectStamina(AdditionalStaminaGain);
+                    case BreakthroughBonus.NONE:
+
+                        break;
+                    case BreakthroughBonus.STAMINA:
+                        DoStaminaBreakThroughTick(EquippedCharacter);
+                        break;
+                    case BreakthroughBonus.MANA:
+                        DoManaBreakThroughTick(EquippedCharacter);
+                        break;
                 }
             }
+            else if (!EquippedCharacter.InCombat && EquippedCharacter)
+            {
+                AddEnergy(20);
+            }
+        
 
             //add energy if not in combat
             if (!EquippedCharacter.InCombat && EquippedCharacter)
             {
                 AddEnergy(20);
             }
+        }
+        public virtual void DoManaBreakThroughTick(Character Character)
+        {
+            //EquippedCharacter.Stats.UseMana(StaminaGain);
+            Character.Stats.RestoreBurntHealth(BurntResourceRestore);
+            Character.Stats.RestoreBurntStamina(BurntResourceRestore);
+        }
+        public virtual void DoStaminaBreakThroughTick(Character Character)
+        {
+            //EquippedCharacter.Stats.UseMana(StaminaGain);
+            Character.Stats.AffectStamina(AdditionalStaminaGain);
         }
 
         public void AddEnergy(float amount)
