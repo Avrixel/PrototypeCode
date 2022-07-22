@@ -25,7 +25,7 @@ namespace AvrixelPrototype
         // For accessing your BepInEx Logger from outside of this class (MyMod.Log)
         internal static ManualLogSource Log;
 
-        public static int DefaultEngine = -9000;
+        public static int DefaultEngine = -19030;
 
 
 
@@ -48,7 +48,7 @@ namespace AvrixelPrototype
 
         public enum PrototypeItemEngineIDS
         {
-            BaseEngine = -9000
+            BaseEngine = -19030
         }
     }
 }

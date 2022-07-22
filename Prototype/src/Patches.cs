@@ -115,30 +115,47 @@ namespace AvrixelPrototype
             return true;
         }
     }
-
-
-    //This patch unequips it no matter where its removed from, so even between bags, safest way to keep it stable for now.
-    [HarmonyPatch(typeof(ItemContainer))]
+    [HarmonyPatch(nameof(ItemContainer.RemoveItem))]
     public class ItemContainerRemoveItem
     {
-        [HarmonyPatch(nameof(ItemContainer.RemoveItem)), HarmonyPrefix]
-        static void ItemContainerRemoveItem_Prefix(ItemContainer __instance, Item _itemToRemove)
+        static void ItemContainerRemoveItem_Prefix(ItemContainer __instance, Item _item)
         {
-            PlayerInventoryEquippableComponent equippableComponent = __instance.OwnerCharacter.gameObject.GetComponentInParent<PlayerInventoryEquippableComponent>();
+            PlayerInventoryEquippableComponent equippableComponent = __instance.OwnerCharacter.gameObject.GetComponent<PlayerInventoryEquippableComponent>();
 
-            if (equippableComponent != null && equippableComponent.HasEquipped && equippableComponent.EquippedItem == _itemToRemove)
+            if (equippableComponent != null && equippableComponent.HasEquipped && equippableComponent.EquippedItem == _item)
             {
-                if (Helpers.HasButtonHighLight(equippableComponent.EquippedItem.UID))
-                {
-                    Helpers.DestroyButtonHighLight(equippableComponent.EquippedItem.UID);
-                }
-
                 equippableComponent.UnEquip();
             }
         }
     }
 
+    [HarmonyPatch(nameof(CharacterInventory.NotifyItemRemoved))]
+    public class CharacterInventoryNotifyItemRemoved
+    {
+        static void CharacterInventory_RemoveItem_Prefix(CharacterInventory __instance, Item _item, int _quantity, bool _playSound)
+        {
+            PlayerInventoryEquippableComponent equippableComponent = __instance.GetComponent<PlayerInventoryEquippableComponent>();
 
+            if (equippableComponent != null && equippableComponent.HasEquipped && equippableComponent.EquippedItem == _item)
+            {
+                equippableComponent.UnEquip();
+            }
+        }
+    }
+
+    [HarmonyPatch(nameof(CharacterInventory.NotifyItemRemoved))]
+    public class CharacterInventoryDropItem
+    {
+        static void CharacterInventory_DropItem_Prefix(CharacterInventory __instance, Item _item, Transform _newParent = null, bool _playAnim = true)
+        {
+            PlayerInventoryEquippableComponent equippableComponent = __instance.GetComponent<PlayerInventoryEquippableComponent>();
+
+            if (equippableComponent != null && equippableComponent.HasEquipped && equippableComponent.EquippedItem == _item)
+            {
+                equippableComponent.UnEquip();
+            }
+        }
+    }
     [HarmonyPatch(typeof(Character), nameof(Character.Awake))]
     public class CharacterAwakePatch
     {

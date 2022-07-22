@@ -11,28 +11,38 @@ namespace AvrixelPrototype
     public class ItemEngine_Charge : BaseInventoryEquippable
     {
         public float CurrentCharge;
-        public float MaximumCharge;
+        public float MaximumCharge = 200f;
 
-        public float EnergyTakenPerTick = 10f;
-        public float TickTime = 10f;
+        public float EnergyTakenPerTick = 1f;
+        public float TickTime = 1f;
 
         private float CurrentTimer = 0;
         private string StatStackUID = "PrototypeStaminaStatBoost";
-        private float StaminaGain = 1.5f;
+        private float StaminaGain = 1f;
+        private float AdditionalStaminaGain = 0.5f;
+        private float BurntResourceRestore = 0.5f;
+
+        //to check if the engine is empty
+        public bool IsEmpty;
+        //bool for the breakthrough passives
+        public bool StaminaEngine= false;
+        public bool ManaEngine= false;
 
 
         public override void OnEquip(Character CharacterToEquip)
         {
             base.OnEquip(CharacterToEquip);
 
-            //add stamina regen buff on equip
-            if (EquippedCharacter && CurrentCharge >= EnergyTakenPerTick)
+            //check for breakthrough on equip and add 5 maxStamina for mana engine and 15 maxStamina for stamina engine
+          /*  if (Character.Inventory.SkillKnowledge.IsItemLearned(-19024))
             {
-                if (!EquippedCharacter.Stats.m_staminaRegen.m_rawStack.ContainsKey(StatStackUID))
-                {
-                    EquippedCharacter.Stats.m_staminaRegen.m_rawStack.Add(StatStackUID, new StatStack(StatStackUID, StaminaGain));
-                }
+                ManaEngine = true;
             }
+            if (Character.Inventory.SkillKnowledge.IsItemLearned(-19025))
+            {
+                StaminaEngine = true;
+            }*/
+
         }
 
         public override void Update()
@@ -42,17 +52,43 @@ namespace AvrixelPrototype
             CurrentTimer += Time.deltaTime;
             if (IsEquipped && CurrentTimer >= TickTime)
             {
+                CurrentTimer = 0;
                 OnTick();
             }
         }
 
         public virtual void OnTick()
         {
-            RemoveEnergy(EnergyTakenPerTick);
+
+            //add stamina if the engine is active and in combat
+            //and remove energy
+            if (IsEmpty=false && EquippedCharacter && EquippedCharacter.InCombat)
+            {
+                EquippedCharacter.Stats.AffectStamina(StaminaGain);
+                RemoveEnergy(EnergyTakenPerTick);
+                //remove 0.5 mana to remove 0.5 burnt health and stamina
+                if (ManaEngine)
+                {
+                    //EquippedCharacter.Stats.UseMana(StaminaGain);
+                    EquippedCharacter.Stats.RestoreBurntHealth(BurntResourceRestore);
+                    EquippedCharacter.Stats.RestoreBurntStamina(BurntResourceRestore);
+                }
+                if (StaminaEngine)
+                {
+                    EquippedCharacter.Stats.AffectStamina(AdditionalStaminaGain);
+                }
+            }
+
+            //add energy if not in combat
+            if (!EquippedCharacter.InCombat && EquippedCharacter)
+            {
+                AddEnergy(20);
+            }
         }
 
         public void AddEnergy(float amount)
         {
+            
             CurrentCharge += amount;
 
             if (CurrentCharge >= MaximumCharge)
@@ -60,6 +96,11 @@ namespace AvrixelPrototype
                 CurrentCharge = MaximumCharge;
                 //full
                 OnEnergyFull();
+            }
+            //check if at least some energy is in the engine
+            if (CurrentCharge > 0)
+            {
+                IsEmpty = false;
             }
         }
 
@@ -85,10 +126,9 @@ namespace AvrixelPrototype
         {
             if (EquippedCharacter)
             {
-                if (EquippedCharacter.Stats.m_staminaRegen.m_rawStack.ContainsKey(StatStackUID))
-                {
-                    EquippedCharacter.Stats.m_staminaRegen.m_rawStack.Remove(StatStackUID);
-                }
+                IsEmpty = true;
+                //add drawback on player when he reaches 0 energy
+                //EquippedCharacter.StatusEffectMngr.AddStatusEffect(Drawback);
             }
         }
         
