@@ -23,7 +23,7 @@ namespace AvrixelPrototype
         private float BurntResourceRestore = 0.5f;
 
         //to check if the engine is empty
-        public bool IsEmpty;
+        public bool IsEmpty => CurrentCharge > 0 ? true : false;
         //enum for the breakthrough passives
         public enum BreakthroughBonus
         {
@@ -109,8 +109,12 @@ namespace AvrixelPrototype
         public virtual void DoManaBreakThroughTick(Character Character)
         {
             //EquippedCharacter.Stats.UseMana(StaminaGain);
-            Character.Stats.RestoreBurntHealth(BurntResourceRestore);
-            Character.Stats.RestoreBurntStamina(BurntResourceRestore);
+            if (Character.Stats.m_burntHealth > 0 || Character.Stats.m_burntStamina > 0)
+            {
+                Character.Stats.UseMana(null, BurntResourceRestore);
+                Character.Stats.RestoreBurntHealth(BurntResourceRestore);
+                Character.Stats.RestoreBurntStamina(BurntResourceRestore);
+            }
         }
         public virtual void DoStaminaBreakThroughTick(Character Character)
         {
@@ -129,11 +133,7 @@ namespace AvrixelPrototype
                 //full
                 OnEnergyFull();
             }
-            //check if at least some energy is in the engine
-            if (CurrentCharge > 0)
-            {
-                IsEmpty = false;
-            }
+
         }
 
         public void RemoveEnergy(float amount)
@@ -150,7 +150,7 @@ namespace AvrixelPrototype
 
         public virtual void OnEnergyFull()
         {
-
+            EquippedCharacter.StatusEffectMngr.AddStatusEffect("Energized");
         }
 
 
@@ -158,9 +158,8 @@ namespace AvrixelPrototype
         {
             if (EquippedCharacter)
             {
-                IsEmpty = true;
                 //add drawback on player when he reaches 0 energy
-                //EquippedCharacter.StatusEffectMngr.AddStatusEffect(Drawback);
+                EquippedCharacter.StatusEffectMngr.AddStatusEffect("Drawback");
             }
         }
         

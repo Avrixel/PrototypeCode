@@ -13,7 +13,7 @@ namespace OutwardModTemplate
     {
         public Item ParentItem => GetComponent<Item>();
         public Character EquippedCharacter { get; private set; }
-        public bool IsEquipped { get; private set; }
+        public bool IsEquipped => EquippedCharacter != null ? true : false;
 
         public bool HasEquipVisual = false;
         public EquipVisualInformation EquipVisualInformation;
