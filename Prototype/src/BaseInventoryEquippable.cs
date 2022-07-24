@@ -31,6 +31,11 @@ namespace OutwardModTemplate
             }
         }
 
+        public virtual void OnStatusEffectRemoved(StatusEffect Status)
+        {
+
+        }
+
         public virtual void OnUnEquip(Character CharacterToEquip)
         {
             EquippedCharacter = null;

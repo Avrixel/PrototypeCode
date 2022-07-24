@@ -17,10 +17,12 @@ namespace AvrixelPrototype
         public float TickTime = 1f;
 
         private float CurrentTimer = 0;
-        private string StatStackUID = "PrototypeStaminaStatBoost";
+        private float ManaUsed = 0.5f;
         private float StaminaGain = 1f;
         private float AdditionalStaminaGain = 0.5f;
         private float BurntResourceRestore = 0.5f;
+        private float StaminaGainUsedPrime = 20f;
+        private float ManaGainUsedPrime = 10f;
 
         //to check if the engine is empty
         public bool IsEmpty => CurrentCharge > 0 ? true : false;
@@ -55,6 +57,21 @@ namespace AvrixelPrototype
             
 
         }
+        public override void OnStatusEffectRemoved(StatusEffect Status)
+        {
+            //if Charged is used it will add 10 energy
+            if (Status.IdentifierName == "Charged")
+            {
+                AddEnergy(10);
+                EquippedCharacter.StatusEffectMngr.AddStatusEffect("Possessed");
+            }
+            //if Prime is used with Stamina engine it will give health and stamina
+            if (Status.IdentifierName == "Prime" && Breakthrough == BreakthroughBonus.STAMINA)
+            {
+                EquippedCharacter.Stats.AffectStamina(StaminaGainUsedPrime);
+                EquippedCharacter.Stats.AffectHealth(StaminaGainUsedPrime);
+            }
+        }
 
         public override void Update()
         {
@@ -78,9 +95,12 @@ namespace AvrixelPrototype
                 EquippedCharacter.Stats.AffectStamina(StaminaGain);
                 RemoveEnergy(EnergyTakenPerTick);
 
-
                 BreakthroughBonus mode = GetBreakThroughMode(EquippedCharacter);
 
+                if (CurrentCharge == MaximumCharge - MaximumCharge * 0.5)
+                {
+                    EquippedCharacter.StatusEffectMngr.RemoveStatusWithIdentifierName("Energized");
+                }
                 switch (mode)
                 {
                     case BreakthroughBonus.NONE:
@@ -96,14 +116,7 @@ namespace AvrixelPrototype
             }
             else if (!EquippedCharacter.InCombat && EquippedCharacter)
             {
-                AddEnergy(20);
-            }
-        
-
-            //add energy if not in combat
-            if (!EquippedCharacter.InCombat && EquippedCharacter)
-            {
-                AddEnergy(20);
+                AddEnergy(40);
             }
         }
         public virtual void DoManaBreakThroughTick(Character Character)
@@ -111,7 +124,7 @@ namespace AvrixelPrototype
             //EquippedCharacter.Stats.UseMana(StaminaGain);
             if (Character.Stats.m_burntHealth > 0 || Character.Stats.m_burntStamina > 0)
             {
-                Character.Stats.UseMana(null, BurntResourceRestore);
+                Character.Stats.UseMana(null, ManaUsed);
                 Character.Stats.RestoreBurntHealth(BurntResourceRestore);
                 Character.Stats.RestoreBurntStamina(BurntResourceRestore);
             }

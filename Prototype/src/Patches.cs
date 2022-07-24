@@ -164,4 +164,24 @@ namespace AvrixelPrototype
             __instance.gameObject.AddComponent<PlayerInventoryEquippableComponent>();
         }
     }
+    [HarmonyPatch(nameof(StatusEffectManager.RemoveStatus))]
+    public class StatusEffectManagerOnStatusRemoved
+    {
+        static void StatusEffectManager_OnStatusRemovedPrefix(StatusEffectManager __instance, string _uid)
+        {
+            PlayerInventoryEquippableComponent equippableComponent = __instance.m_character.GetComponent<PlayerInventoryEquippableComponent>();
+
+            if (equippableComponent != null && equippableComponent.HasEquipped)
+            {
+                StatusEffect statusEffect = null;
+                if (__instance.m_statuses.TryGetValue(_uid, out statusEffect))
+                {
+                    if (statusEffect)
+                    {
+                        equippableComponent.EquippedInventoryEquippable.OnStatusEffectRemoved(statusEffect);
+                    }
+                }
+            }
+        }
+    }
 }
