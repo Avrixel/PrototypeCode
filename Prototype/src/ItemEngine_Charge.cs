@@ -87,7 +87,11 @@ namespace AvrixelPrototype
 
         public virtual void OnTick()
         {
-
+            //remove energized if energy drops below 50%
+            if (CurrentCharge == MaximumCharge - MaximumCharge * 0.5)
+            {
+                EquippedCharacter.StatusEffectMngr.RemoveStatusWithIdentifierName("Energized");
+            }
             //add stamina if the engine is active and in combat
             //and remove energy
             if (!IsEmpty && EquippedCharacter && EquippedCharacter.InCombat)
@@ -97,10 +101,7 @@ namespace AvrixelPrototype
 
                 BreakthroughBonus mode = GetBreakThroughMode(EquippedCharacter);
 
-                if (CurrentCharge == MaximumCharge - MaximumCharge * 0.5)
-                {
-                    EquippedCharacter.StatusEffectMngr.RemoveStatusWithIdentifierName("Energized");
-                }
+
                 switch (mode)
                 {
                     case BreakthroughBonus.NONE:
