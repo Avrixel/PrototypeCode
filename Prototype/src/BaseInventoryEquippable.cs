@@ -31,6 +31,12 @@ namespace OutwardModTemplate
             }
         }
 
+
+        public virtual void OnStatusEffectAdded(StatusEffect Status)
+        {
+
+        }
+
         public virtual void OnStatusEffectRemoved(StatusEffect Status)
         {
 
