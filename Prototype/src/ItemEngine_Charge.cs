@@ -10,7 +10,7 @@ namespace AvrixelPrototype
 {
     public class ItemEngine_Charge : BaseInventoryEquippable
     {
-        public float CurrentCharge;
+        public float CurrentCharge = 0f;
         public float MaximumCharge = 200f;
 
         public float EnergyTakenPerTick = 1f;
@@ -21,7 +21,7 @@ namespace AvrixelPrototype
         private float StaminaGain = 1f;
         private float AdditionalStaminaGain = 0.5f;
         private float BurntResourceRestore = 0.5f;
-        private float StaminaGainUsedPrime = 20f;
+        private float StaminaGainUsedPrime = 10f;
         private float ManaGainUsedPrime = 10f;
 
         //to check if the engine is empty
@@ -37,7 +37,7 @@ namespace AvrixelPrototype
         }
         public BreakthroughBonus Breakthrough = ItemEngine_Charge.BreakthroughBonus.NONE;
 
-        //check for breakthrough on equip and add 5 maxStamina for mana engine and 15 maxStamina for stamina engine
+        //check for breakthrough on equip
         public BreakthroughBonus GetBreakThroughMode(Character Character)
         {
             if (Character.Inventory.SkillKnowledge.IsItemLearned(-19024))
@@ -91,7 +91,6 @@ namespace AvrixelPrototype
             {
                 return;
             }
-
             //add stamina if the engine is active and in combat
             //and remove energy
 
@@ -178,11 +177,6 @@ namespace AvrixelPrototype
 
         public virtual void OnEnergyFull()
         {
-            if (EquippedCharacter == null)
-            {
-                return;
-            }
-
             EquippedCharacter.StatusEffectMngr.AddStatusEffect("Energized");
         }
 
