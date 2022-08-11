@@ -87,11 +87,18 @@ namespace AvrixelPrototype
 
         public virtual void OnTick()
         {
+            //add charged if above 75%
+            if (CurrentCharge >= MaximumCharge - MaximumCharge * 0.25)
+            {
+                EquippedCharacter.StatusEffectMngr.AddStatusEffect("Energized");
+            }
+                
             //remove energized if energy drops below 50%
             if (CurrentCharge == MaximumCharge - MaximumCharge * 0.5)
             {
                 EquippedCharacter.StatusEffectMngr.RemoveStatusWithIdentifierName("Energized");
             }
+            
             //add stamina if the engine is active and in combat
             //and remove energy
             if (!IsEmpty && EquippedCharacter && EquippedCharacter.InCombat)
@@ -164,7 +171,7 @@ namespace AvrixelPrototype
 
         public virtual void OnEnergyFull()
         {
-            EquippedCharacter.StatusEffectMngr.AddStatusEffect("Energized");
+            
         }
 
 
