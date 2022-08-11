@@ -26,6 +26,8 @@ namespace AvrixelPrototype
 
         //to check if the engine is empty
         public bool IsEmpty => CurrentCharge > 0 ? true : false;
+        //The Current Charge Level as a normalized percentage (eg 0-1) 0 being 0% and 1 being 100%
+        public float ChargeAsNormalizedPercent => CurrentCharge / MaximumCharge;
         //enum for the breakthrough passives
         public enum BreakthroughBonus
         {
@@ -52,11 +54,9 @@ namespace AvrixelPrototype
 
         public override void OnEquip(Character CharacterToEquip)
         {
-            base.OnEquip(CharacterToEquip);
-
-            
-
+            base.OnEquip(CharacterToEquip);         
         }
+
         public override void OnStatusEffectRemoved(StatusEffect Status)
         {
             //if Charged is used it will add 10 energy
@@ -87,37 +87,47 @@ namespace AvrixelPrototype
 
         public virtual void OnTick()
         {
-            //remove energized if energy drops below 50%
-            if (CurrentCharge == MaximumCharge - MaximumCharge * 0.5)
+            if (EquippedCharacter == null)
             {
-                EquippedCharacter.StatusEffectMngr.RemoveStatusWithIdentifierName("Energized");
+                return;
             }
+
             //add stamina if the engine is active and in combat
             //and remove energy
-            if (!IsEmpty && EquippedCharacter && EquippedCharacter.InCombat)
+
+            EquippedCharacter.UpdateCombatStatus();
+
+            if (EquippedCharacter.InCombat)
             {
-                EquippedCharacter.Stats.AffectStamina(StaminaGain);
-                RemoveEnergy(EnergyTakenPerTick);
-
-                BreakthroughBonus mode = GetBreakThroughMode(EquippedCharacter);
-
-
-                switch (mode)
+                if (HasEnergy(EnergyTakenPerTick))
                 {
-                    case BreakthroughBonus.NONE:
+                    EquippedCharacter.Stats.AffectStamina(StaminaGain);
+                    RemoveEnergy(EnergyTakenPerTick);
 
-                        break;
-                    case BreakthroughBonus.STAMINA:
-                        DoStaminaBreakThroughTick(EquippedCharacter);
-                        break;
-                    case BreakthroughBonus.MANA:
-                        DoManaBreakThroughTick(EquippedCharacter);
-                        break;
+                    BreakthroughBonus mode = GetBreakThroughMode(EquippedCharacter);
+
+                    switch (mode)
+                    {
+                        case BreakthroughBonus.STAMINA:
+                            DoStaminaBreakThroughTick(EquippedCharacter);
+                            break;
+                        case BreakthroughBonus.MANA:
+                            DoManaBreakThroughTick(EquippedCharacter);
+                            break;
+                    }
                 }
             }
-            else if (!EquippedCharacter.InCombat && EquippedCharacter)
+            else if (!EquippedCharacter.InCombat)
             {
-                AddEnergy(40);
+                AddEnergy(40);                 
+            }
+
+
+            //do this after you've changed the energy levels so you dont have to wait until the next tick.
+            //remove energized if energy drops below 50%
+            if (ChargeAsNormalizedPercent < 0.5f)
+            {
+                EquippedCharacter.StatusEffectMngr.RemoveStatusWithIdentifierName("Energized");
             }
         }
         public virtual void DoManaBreakThroughTick(Character Character)
@@ -137,8 +147,7 @@ namespace AvrixelPrototype
         }
 
         public void AddEnergy(float amount)
-        {
-            
+        {         
             CurrentCharge += amount;
 
             if (CurrentCharge >= MaximumCharge)
@@ -162,14 +171,29 @@ namespace AvrixelPrototype
             }
         }
 
+        public bool HasEnergy(float amount)
+        {
+            return CurrentCharge >= amount;
+        }
+
         public virtual void OnEnergyFull()
         {
+            if (EquippedCharacter == null)
+            {
+                return;
+            }
+
             EquippedCharacter.StatusEffectMngr.AddStatusEffect("Energized");
         }
 
 
         public virtual void OnEnergyEmpty()
         {
+            if (EquippedCharacter == null)
+            {
+                return;
+            }
+
             if (EquippedCharacter)
             {
                 //add drawback on player when he reaches 0 energy
