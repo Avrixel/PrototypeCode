@@ -52,11 +52,6 @@ namespace AvrixelPrototype
             return BreakthroughBonus.NONE;
         }
 
-        public override void OnEquip(Character CharacterToEquip)
-        {
-            base.OnEquip(CharacterToEquip);         
-        }
-
         public override void OnStatusEffectRemoved(StatusEffect Status)
         {
             //if Charged is used it will add 10 energy
@@ -91,20 +86,22 @@ namespace AvrixelPrototype
             {
                 return;
             }
-            //add stamina if the engine is active and in combat
-            //and remove energy
 
+            //might need to comment out, shouldn't need but just in case..
             EquippedCharacter.UpdateCombatStatus();
 
             if (EquippedCharacter.InCombat)
             {
+                Prototype.Log.LogMessage("ItemEngine tick : Equipped Character In Combat");
+
                 if (HasEnergy(EnergyTakenPerTick))
                 {
+                    Prototype.Log.LogMessage("ItemEngine tick : Equipped Character Has enough energy");
+
                     EquippedCharacter.Stats.AffectStamina(StaminaGain);
                     RemoveEnergy(EnergyTakenPerTick);
 
                     BreakthroughBonus mode = GetBreakThroughMode(EquippedCharacter);
-
                     switch (mode)
                     {
                         case BreakthroughBonus.STAMINA:
@@ -118,6 +115,7 @@ namespace AvrixelPrototype
             }
             else if (!EquippedCharacter.InCombat)
             {
+                Prototype.Log.LogMessage("ItemEngine tick : Equipped Character NOT In Combat");
                 AddEnergy(40);                 
             }
 
@@ -126,11 +124,13 @@ namespace AvrixelPrototype
             //remove energized if energy drops below 50%
             if (ChargeAsNormalizedPercent < 0.5f)
             {
+                Prototype.Log.LogMessage("ItemEngine tick : Energy below 50%");
                 EquippedCharacter.StatusEffectMngr.RemoveStatusWithIdentifierName("Energized");
             }
         }
         public virtual void DoManaBreakThroughTick(Character Character)
         {
+            Prototype.Log.LogMessage("ItemEngine DoManaBreakThroughTick");
             //EquippedCharacter.Stats.UseMana(StaminaGain);
             if (Character.Stats.m_burntHealth > 0 || Character.Stats.m_burntStamina > 0)
             {
@@ -141,6 +141,7 @@ namespace AvrixelPrototype
         }
         public virtual void DoStaminaBreakThroughTick(Character Character)
         {
+            Prototype.Log.LogMessage("ItemEngine DoStaminaBreakThroughTick");
             //EquippedCharacter.Stats.UseMana(StaminaGain);
             Character.Stats.AffectStamina(AdditionalStaminaGain);
         }
@@ -177,6 +178,11 @@ namespace AvrixelPrototype
 
         public virtual void OnEnergyFull()
         {
+            if (EquippedCharacter == null)
+            {
+                return;
+            }
+
             EquippedCharacter.StatusEffectMngr.AddStatusEffect("Energized");
         }
 
